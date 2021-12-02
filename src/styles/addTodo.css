@@ -1,0 +1,37 @@
+.justifyCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todoInput {
+    width: 50vw;
+}
+
+.mainContainer {
+    min-height: 100vh;
+    margin: 10vh;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+}
+
+.todoContainer {
+    padding: 20px !important;
+}
+
+.mediumMarginLeft {
+    margin-left: 20px !important;
+}
+
+.todoHeading {
+    color: #2185d0;
+}
+
+.tableContainer {
+    padding: 20px !important;
+    flex-direction: column;
+}
+
+.errorMessage {
+    color: red;
+}
