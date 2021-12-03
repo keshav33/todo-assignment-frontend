@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/addTodo.css';
-import { Input, Button, Icon } from 'semantic-ui-react';
+import { Input, Button, Icon, Message } from 'semantic-ui-react';
 import TodoTable from './TodoTable';
-import { addTodo, deleteTodo, getAllTodos, ç } from '../api/todoApi'
+import { addTodo, deleteTodo, getAllTodos, marketTodoCompleted } from '../api/todoApi';
+import ErrorModel from './ErrorModel';
 
 const AddTodo = () => {
     const [todo, setTodo] = useState('');
@@ -10,6 +11,7 @@ const AddTodo = () => {
     const [allTodos, setAllTodos] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [openErrorModal, setOpenErrorModel] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -47,7 +49,7 @@ const AddTodo = () => {
                 setError(err);
             })
         } else {
-            alert('Please Enter Correct Values');
+            handleErrorModal(true);
         }
     }
 
@@ -62,12 +64,29 @@ const AddTodo = () => {
             setError(err);
         })
     }
-    
+
+    const handleCompleted = (todoId, checked) => {
+        setLoading(true);
+        marketTodoCompleted(todoId, !checked)
+        .then((todos) => {
+            setLoading(false);
+            setAllTodos(todos);
+        }).catch(err => {
+            setLoading(false);
+            setError(err);
+        })
+    }
+
+    const handleErrorModal = (status) => {
+        setOpenErrorModel(status)
+    }
+
     return (
         <div className='mainContainer'>
+            <ErrorModel open={openErrorModal} setOpen={handleErrorModal}/>
             <div className='justifyCenter' style={{ paddingTop: '20px' }}>
                 <Icon name='checkmark box' color='blue' size='big' style={{paddingTop: '10px'}}/>
-                <h2 className='todoHeading'>Spike.sh TODO</h2>
+                <h2 className='todoHeading'>Spike.sh Todo's</h2>
             </div>
             <div className='justifyCenter todoContainer'>
                 <Input
@@ -91,12 +110,13 @@ const AddTodo = () => {
                     onClick={() => handleAddTodo()}
                 />
             </div>
-            {errorMessage && <div className='justifyCenter errorMessage'>{errorMessage}</div>}
+            {errorMessage && <Message error>{errorMessage}</Message>}
             <div className='tableContainer justifyCenter'>
                 <TodoTable 
                     allTodos={allTodos} 
                     loading={loading}
                     deleteTodo={handleDelete}
+                    markCompleted={handleCompleted}
                     />
             </div>
         </div>

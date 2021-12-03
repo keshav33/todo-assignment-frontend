@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Checkbox, Button, Segment, Dimmer, Loader } from 'semantic-ui-react';
+import { Table, Checkbox, Button, Dimmer, Loader } from 'semantic-ui-react';
 
 const TodoTable = (props) => {
     const generateTableBody = () => {
@@ -8,12 +8,16 @@ const TodoTable = (props) => {
                 props.allTodos.map((todoObject, index) => {
                     return (
                         <Table.Row key={index}>
-                            <Table.Cell collapsing><Checkbox /></Table.Cell>
-                            <Table.Cell width={8}>{todoObject.todo}</Table.Cell>
+                            <Table.Cell collapsing>
+                                <Checkbox 
+                                    checked={todoObject.completed}
+                                    onClick={() => props.markCompleted(todoObject._id, todoObject.completed)}
+                                />
+                            </Table.Cell>
+                            <Table.Cell width={9}>{todoObject.todo}</Table.Cell>
                             <Table.Cell>{todoObject.date}</Table.Cell>
                             <Table.Cell>{todoObject.time}</Table.Cell>
                             <Table.Cell>
-                                <Button primary>Edit</Button>
                                 <Button primary onClick={() => props.deleteTodo(todoObject._id)}>Delete</Button>
                             </Table.Cell>
                         </Table.Row>
@@ -45,7 +49,7 @@ const TodoTable = (props) => {
             <div>
                 <h2 className='todoHeading'>All Todo's</h2>
             </div>
-            <Table>
+            <Table color='blue' >
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>Completed</Table.HeaderCell>
