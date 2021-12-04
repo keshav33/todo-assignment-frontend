@@ -27,9 +27,6 @@ const AddTodo = () => {
 
     const setError = (errorMsg) => {
         setErrorMessage(errorMsg);
-        setTimeout(() => {
-            setErrorMessage(null);
-        }, 5000);
     }
 
     const handleAddTodo = () => {
@@ -92,13 +89,19 @@ const AddTodo = () => {
                 <Input
                     className='todoInput'
                     placeholder='Add New!'
-                    onChange={(event) => setTodo(event.target.value)}
+                    onChange={(event) => {
+                        setError(null)
+                        setTodo(event.target.value)
+                    }}
                     value={todo}
                 />
                 <input
                     type='datetime-local'
                     className='mediumMarginLeft'
-                    onChange={(event) => setReminderDateTime(event.target.value)}
+                    onChange={(event) => {
+                        setError(null)
+                        setReminderDateTime(event.target.value)
+                    }}
                     value={reminderDateTime}
                 />
                 <Button
@@ -107,10 +110,13 @@ const AddTodo = () => {
                     size='large'
                     circular 
                     icon='add'
-                    onClick={() => handleAddTodo()}
+                    onClick={() => {
+                        setError(null)
+                        handleAddTodo()
+                    }}
                 />
             </div>
-            {errorMessage && <Message error>{errorMessage}</Message>}
+            {errorMessage && <Message error style={{textAlign: 'center'}}>{errorMessage}</Message>}
             <div className='tableContainer justifyCenter'>
                 <TodoTable 
                     allTodos={allTodos} 

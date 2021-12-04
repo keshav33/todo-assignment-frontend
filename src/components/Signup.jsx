@@ -67,7 +67,7 @@ const SignUp = () => {
                             value={email}
                             label='Email ID'
                             onChange={(e) => {
-                                setEmail(e.target.value);
+                                setEmail(e.target.value.toLowerCase());
                                 setError(null);
                             }}
                             placeholder='abc@email.com' />

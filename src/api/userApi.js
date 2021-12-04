@@ -22,3 +22,14 @@ export const loginUser = (email, password) => {
         })
     })
 }
+
+export const googleLogin = (user) => {
+    return new Promise((resolve, reject) => {
+        axios.post('/user/google/login', {user})
+        .then((response) => {
+            resolve(response.data);
+        }).catch(err => {
+            reject(formatError(err));
+        })
+    })
+}
