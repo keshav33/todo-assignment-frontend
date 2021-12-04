@@ -41,6 +41,8 @@ const AddTodo = () => {
             .then((todos) => {
                 setLoading(false);
                 setAllTodos(todos);
+                setTodo('');
+                setReminderDateTime('');
             }).catch(err => {
                 setLoading(false);
                 setError(err);

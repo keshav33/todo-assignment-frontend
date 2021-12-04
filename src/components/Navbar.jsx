@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
 import '../styles/navbar.css';
 
 const Navbar = () => {
@@ -26,15 +27,13 @@ const Navbar = () => {
     return (
         <ul className='nav'>
             {!isTokenAvailable ?
-                <li>
-                    <Link className='noHover'>
-                        Spike.sh Todo's
-                    </Link>
+                <li className='nonIntractable'>
+                    <Icon name='checkmark box' />
+                    Spike.sh Todo's
                 </li> :
-                <li>
-                    <Link className='noHover'>
-                        {username}
-                    </Link>
+                <li className='nonIntractable'>
+                    <Icon name='user' />
+                    {username}
                 </li>
             }
             {!isTokenAvailable &&
