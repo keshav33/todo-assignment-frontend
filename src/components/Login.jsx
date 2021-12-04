@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import '../styles/login.css';
 import { useState } from 'react';
 import { loginUser } from '../api/userApi';
+import ErrorModel from './ErrorModel';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -11,30 +12,41 @@ const Login = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const [authSuccess, setAuthSuccess] = useState(false);
+    const [openErrorModal, setOpenErrorModel] = useState(false);
     const history = useHistory();
+
     const handleLogin = () => {
-        setLoading(true);
-        loginUser(email, password)
-        .then((response) => {
-            setError(false);
-            setLoading(false);
-            setAuthSuccess(true);
-            const {accessToken, username, email} = response;
-            sessionStorage.setItem('accessToken', accessToken);
-            sessionStorage.setItem('username', username);
-            sessionStorage.setItem('email', email);
-            setTimeout(() => {
-                history.push('/todos');
-            }, 2000)
-        }).catch(err => {
-            setLoading(false);
-            setError(err);
-        })
+        if (email.length > 0 && password.length > 0) {
+            setLoading(true);
+            loginUser(email, password)
+            .then((response) => {
+                setError(false);
+                setLoading(false);
+                setAuthSuccess(true);
+                const {accessToken, username, email} = response;
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('username', username);
+                localStorage.setItem('email', email);
+                setTimeout(() => {
+                    history.push('/');
+                }, 2000)
+            }).catch(err => {
+                setLoading(false);
+                setError(err);
+            })
+        } else {
+            handleErrorModal(true);
+        }
+    }
+
+    const handleErrorModal = (status) => {
+        setOpenErrorModel(status)
     }
 
     return (
         <>
             <div className='loginContainer'>
+                <ErrorModel open={openErrorModal} setOpen={handleErrorModal}/>
                 <div className='formDiv'>
                     <Header size='medium' className='marginTopSmall' textAlign='center'>Login Using Email ID</Header>
                     {error && <Message error>{error}</Message>}

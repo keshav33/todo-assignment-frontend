@@ -5,7 +5,9 @@ import Signup from './Signup'
 import Navbar from './Navbar';
 import Notfound from './Notfound';
 import Logout from './Logout';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoute';
 
 const ContentContainer = () => {
     return (
@@ -13,11 +15,11 @@ const ContentContainer = () => {
             <Router>
                 <Navbar />
                 <Switch>
-                    <Route path="/todos" exact component={AddTodo}></Route>
-                    <Route path="/login" exact component={Login}></Route>
-                    <Route path="/signup" exact component={Signup}></Route>
-                    <Route path="/logout" exact component={Logout}></Route>
-                    <Route path="*" component={Notfound}></Route>
+                    <ProtectedRoute path="/" exact component={AddTodo} />
+                    <PublicRoute path="/login" exact component={Login} />
+                    <PublicRoute path="/signup" exact component={Signup} />
+                    <PublicRoute path="/logout" exact component={Logout} />
+                    <Route path="*" component={Notfound} />
                 </Switch>
             </Router>
         </>

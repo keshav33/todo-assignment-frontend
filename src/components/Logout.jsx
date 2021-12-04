@@ -2,8 +2,7 @@ import React from "react";
 import { Grid, Segment } from "semantic-ui-react";
 import '../styles/notfound.css';
 
-const Notfound = () => {
-    sessionStorage.clear();
+const Logout = () => {
     return (
         <div>
             <Grid padded centered>
@@ -21,4 +20,4 @@ const Notfound = () => {
     )
 }
 
-export default Notfound;
+export default Logout;

@@ -9,8 +9,8 @@ const Navbar = () => {
     const [username, setUsername] = useState('');
 
     useEffect(() => {
-        const accessToken = sessionStorage.getItem('accessToken');
-        const username = sessionStorage.getItem('username');
+        const accessToken = localStorage.getItem('accessToken');
+        const username = localStorage.getItem('username');
         if (accessToken) {
             setIsTokenAvailable(true);
             setUsername(username);
@@ -18,6 +18,10 @@ const Navbar = () => {
             setIsTokenAvailable(false);
         }
     }, [page])
+
+    const handleLogout = () => {
+        localStorage.clear();
+    }
 
     return (
         <ul className='nav'>
@@ -47,7 +51,7 @@ const Navbar = () => {
                 </li>
             }
             {isTokenAvailable &&
-                <li className='nav-item'>
+                <li className='nav-item' onClick={() => handleLogout()}>
                     <Link to='/logout'>
                         Logout
                     </Link>
