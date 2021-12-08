@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import '../styles/navbar.css';
+import { getCookie, eraseCookie } from '../utils/cookie'
 
 const Navbar = () => {
     const { pathname } = useLocation();
@@ -10,8 +11,8 @@ const Navbar = () => {
     const [username, setUsername] = useState('');
 
     useEffect(() => {
-        const accessToken = localStorage.getItem('accessToken');
-        const username = localStorage.getItem('username');
+        const accessToken = getCookie('accessToken');
+        const username = getCookie('username');
         if (accessToken) {
             setIsTokenAvailable(true);
             setUsername(username);
@@ -21,7 +22,9 @@ const Navbar = () => {
     }, [page])
 
     const handleLogout = () => {
-        localStorage.clear();
+        eraseCookie('accessToken');
+        eraseCookie('username');
+        eraseCookie('email');
     }
 
     return (

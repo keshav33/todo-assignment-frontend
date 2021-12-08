@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { loginUser, googleLogin } from '../api/userApi';
 import ErrorModel from './ErrorModel';
 import GoogleLogin from 'react-google-login';
+import { setCookie } from '../utils/cookie'
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -25,9 +26,9 @@ const Login = () => {
                     setLoading(false);
                     setAuthSuccess(true);
                     const { accessToken, username, email } = response;
-                    localStorage.setItem('accessToken', accessToken);
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('email', email);
+                    setCookie('accessToken', accessToken);
+                    setCookie('username', username);
+                    setCookie('email', email);
                     setTimeout(() => {
                         history.push('/');
                     }, 2000)
@@ -59,9 +60,9 @@ const Login = () => {
                 setLoading(false);
                 setAuthSuccess(true);
                 const { accessToken, username, email } = response;
-                localStorage.setItem('accessToken', accessToken);
-                localStorage.setItem('username', username);
-                localStorage.setItem('email', email);
+                setCookie('accessToken', accessToken);
+                setCookie('username', username);
+                setCookie('email', email);
                 setTimeout(() => {
                     history.push('/');
                 }, 2000)

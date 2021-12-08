@@ -1,6 +1,6 @@
 import React from 'react'; 
 import { Button, Form, Header, Message } from 'semantic-ui-react'; 
-// import { useHistory } from 'react-router-dom'; 
+import { useHistory } from 'react-router-dom'; 
 import '../styles/login.css';
 import { useState } from 'react';
 import { signupUser } from '../api/userApi';
@@ -14,6 +14,7 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false);
     const [signupSuccess, setSignupSuccess] = useState(false);
     const [openErrorModal, setOpenErrorModel] = useState(false);
+    const history = useHistory();
 
     const handleSignup = () => {
         if (username.length > 0 && email.length > 0 && password.length > 0) {
@@ -23,6 +24,9 @@ const SignUp = () => {
                 setError(false);
                 setLoading(false);
                 setSignupSuccess(true);
+                setTimeout(() => {
+                    history.push('/login');
+                }, 2000);
             }).catch(err => {
                 setLoading(false);
                 setError(err);
@@ -98,7 +102,7 @@ const SignUp = () => {
                             }}
                             disabled={loading}
                         >
-                            Login
+                            Sign Up
                     </Button>
                     </Form>
                     {signupSuccess && <Message success >You Are Successfully Signed Up!</Message>}
