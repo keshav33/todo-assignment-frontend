@@ -3,10 +3,10 @@ import { Button, Form, Header, Message } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 import '../styles/login.css';
 import { useState } from 'react';
-import { loginUser, googleLogin } from '../api/userApi';
+import { loginUser } from '../api/userApi';
 import ErrorModel from './ErrorModel';
-import GoogleLogin from 'react-google-login';
-import { setCookie } from '../utils/cookie'
+import { setCookie } from '../utils/cookie';
+import GoogleSignupLogin from './GoogleSignupLogin';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -43,34 +43,6 @@ const Login = () => {
 
     const handleErrorModal = (status) => {
         setOpenErrorModel(status)
-    }
-
-    const responseGoogle = (response) => {
-        if (response.error) {
-            setError(response.error);
-        } else {
-            const {email, name} = response.profileObj
-            const user = {
-                email,
-                username: name
-            }
-            googleLogin(user)
-            .then((response) => {
-                setError(false);
-                setLoading(false);
-                setAuthSuccess(true);
-                const { accessToken, username, email } = response;
-                setCookie('accessToken', accessToken);
-                setCookie('username', username);
-                setCookie('email', email);
-                setTimeout(() => {
-                    history.push('/');
-                }, 2000)
-            }).catch(err => {
-                setLoading(false);
-                setError(err);
-            })
-        }
     }
 
     return (
@@ -127,12 +99,11 @@ const Login = () => {
                             <h3>OR</h3>
                         </div>
                         <div className='alternateContainer'>
-                            <GoogleLogin
-                                className='googleLoginButton'
-                                clientId={process.env.REACT_APP_GOOGLE_LOGIN_KEY}
-                                onSuccess={responseGoogle}
-                                onFailure={responseGoogle}
-                                cookiePolicy={'single_host_origin'}
+                            <GoogleSignupLogin
+                                setError={setError}
+                                setLoading={setLoading}
+                                setAuthSuccess={setAuthSuccess}
+                                buttonText='Sign in with Google'
                             />
                         </div>
                     </Form>

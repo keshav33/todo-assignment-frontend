@@ -5,6 +5,7 @@ import '../styles/login.css';
 import { useState } from 'react';
 import { signupUser } from '../api/userApi';
 import ErrorModel from './ErrorModel';
+import GoogleSignupLogin from './GoogleSignupLogin';
 
 const SignUp = () => {
     const [username, setUsername] = useState('');
@@ -104,6 +105,17 @@ const SignUp = () => {
                         >
                             Sign Up
                     </Button>
+                    <div className='alternateContainer'>
+                            <h3>OR</h3>
+                        </div>
+                        <div className='alternateContainer'>
+                            <GoogleSignupLogin
+                                setError={setError}
+                                setLoading={setLoading}
+                                setAuthSuccess={setSignupSuccess}
+                                buttonText='Sign up with Google'
+                            />
+                        </div>
                     </Form>
                     {signupSuccess && <Message success >You Are Successfully Signed Up!</Message>}
                 </div>

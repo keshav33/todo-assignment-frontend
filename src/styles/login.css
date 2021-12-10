@@ -27,7 +27,7 @@
     width: calc(100%);
     /* align-self: center; */
     height: 40px !important;
-    background-color: royalblue !important;
+    background-color: #2185d0 !important;
     color: white !important;
     text-transform: uppercase !important;
     font-weight: bold !important;
@@ -35,7 +35,7 @@
 }
 
 .loginButton:hover {
-    background-color: rgb(56, 87, 189) !important;
+    background-color: #165585 !important;
     color: white !important;
 }
 
