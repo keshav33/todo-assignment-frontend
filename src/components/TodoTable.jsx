@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Checkbox, Button, Dimmer, Loader } from 'semantic-ui-react';
+import { Table, Checkbox, Button, Dimmer, Loader, Message } from 'semantic-ui-react';
 
 const TodoTable = (props) => {
     const generateTableBody = () => {
@@ -9,7 +9,7 @@ const TodoTable = (props) => {
                     return (
                         <Table.Row key={index}>
                             <Table.Cell collapsing>
-                                <Checkbox 
+                                <Checkbox
                                     checked={todoObject.completed}
                                     onClick={() => props.markCompleted(todoObject._id, todoObject.completed)}
                                 />
@@ -26,9 +26,11 @@ const TodoTable = (props) => {
             )
         } else {
             return (
-                <div>
-                    No Todo Added!
-                </div>
+                <Table.Row>
+                    <Table.Cell colSpan='5'>
+                        <Message style={{ textAlign: 'center' }}>No Todo's Added!</Message>
+                    </Table.Cell>
+                </Table.Row>
             )
         }
     }

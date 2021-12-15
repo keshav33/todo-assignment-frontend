@@ -32,7 +32,7 @@ const Navbar = () => {
             {!isTokenAvailable ?
                 <li className='nonIntractable'>
                     <Icon name='checkmark box' />
-                    Spike.sh Todo's
+                    My Todo's
                 </li> :
                 <li className='nonIntractable'>
                     <Icon name='user' />

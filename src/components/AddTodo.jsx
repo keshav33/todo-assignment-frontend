@@ -85,7 +85,7 @@ const AddTodo = () => {
             <ErrorModel open={openErrorModal} setOpen={handleErrorModal}/>
             <div className='justifyCenter' style={{ paddingTop: '20px' }}>
                 <Icon name='checkmark box' color='blue' size='big' style={{paddingTop: '10px'}}/>
-                <h2 className='todoHeading'>Spike.sh Todo's</h2>
+                <h2 className='todoHeading'>My Todo's</h2>
             </div>
             <div className='justifyCenter todoContainer'>
                 <Input
